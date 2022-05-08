@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty FetchApi con Javascript</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+           
+        }
+        #contenido{
+            display: flex;
+            flex-wrap: wrap;
+            width: auto;
+            
+            justify-content: center;
+            justify-content: space-evenly;
+            font-weight: bold;
+            font-size: large;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        #contenido div{
+            margin: 3em;
+            background-color: rgb(79, 78, 78);
+            border-radius: 2%;
+        }
+        .pic {
+            border: 1px solid black;
+            border-radius: 2%;
+        }
+        .container, #pic{display: flex ;
+            justify-content: center;
+
+        }
+        #boton {display: flex;
+            justify-content: center;
+            margin: 3rem;
+        }
+        #volver{
+            display: none;
+            justify-content: center;
+
+        }
+
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container my-5 text-center">
+        <h1 id="titulo">Rick & Morty</h1></div>
+       <div id="pic"> <img src="https://rickandmorty-conreact.netlify.app/static/media/rick-morty.ed9fa0be01b38da56af4.png" width="40%" ></div>
+     
+       
+        <div id="boton">  <button class="btn-danger w-100" onclick="traer_dos()">Obtener</button></div>
+        <div id="volver"><button onclick="home()">Volver</button></div>
+       <div class="mt-5" id="contenido">
+        <!-- Insertaremos contenido del archivo de texto para utilizar Fetch -->
+
+       
+
+
+       </div>
+<script>
+    
+    function traer_dos() {
+        
+        let str=""
+         
+        fetch('https://rickandmortyapi.com/api/character')
+        .then(res => res.json())
+        .then(res => {
+         
+        
+        // console.log(res.results[0].email)
+        // contenido.innerHTML= `${res.results[0].email}`
+       
+       
+      //  contenido.innerHTML= `<img src="${res.results[0]["image"]}"
+      //  width="100px" class="img-fluid rounded-circle">
+      //  <p>Nombre: ${res.results[0]["name"]}</p>
+      //    `
+          for (let i=0; i<res.results.length; i++){
+              str+=`<div><img class="pic" src=${res.results[i]["image"]} width="300rem"/><p>Nombre: ${res.results[i]["name"]}</p> <p>Genero: ${res.results[i]["gender"]}</p> <p>Episodios: ${res.results[i]["episode"].length}</p></div>`
+              }
+          
+        const tittle = document.querySelector("#pic");
+        tittle.setAttribute('style', 'display:none');
+        volver.setAttribute("style", 'display:flex');
+        const obten = document.querySelector('#boton');
+        obten.setAttribute('style', 'display:none');
+         contenido.innerHTML=`${str}`
+        })
+       
+       } 
+      
+      function home(){
+        const volver =document.querySelector("#volver");
+        volver.setAttribute("style", 'display:none');
+        const tittle = document.querySelector("#pic");
+        tittle.setAttribute('style', 'display:flex');
+        const obten = document.querySelector('#boton');
+        obten.setAttribute('style', 'display:flex');
+
+        contenido.innerHTML=""
+      } 
+    
+     
+</script>
+
+
+ 
+</body>
+</html>
+
+
+
+<!-- contenido.innerHTML= `
+    <img src="${res.results[0].picture.large}"
+    width="100px" class="img-fluid rounded-circle">
+    <p>Nombre: ${res.results[0].name.first}</p>
+    <p>Mail: ${res.results[0].email}</p> ` -->
